@@ -1,3 +1,4 @@
+const { response } = require('express');
 var http = require('http');
 const app = require('express')()
 
@@ -26,6 +27,47 @@ app.get('/status/*', function(req, res) {
     res.end(messageString);
 
 });
+
+app.get('/contentlength/*', function(req, res) {
+  let fetchNumberArray = fetchIntegerValueInRequestPath(req);
+  let contentLength = fetchNumberArray[0];
+  let errorMessage = fetchNumberArray[1];
+  let messageString= "";
+  console.log("contentLength: "+ contentLength);
+  console.log(JSON.stringify(req.headers,null, 2));
+  if(contentLength != undefined && contentLength > 50){
+    messageString =  "Content length "+  contentLength + " set to the header\n"
+    let stringLength = messageString.length;
+    // Appending chracters to matche the body size to content-length
+    while(stringLength<contentLength){
+      messageString += ".";
+      stringLength++;
+    }
+    
+  } else {
+    if(contentLength != undefined && contentLength <= 50){
+      errorMessage = "Content lenght can not be less than 50"
+    }
+    messageString = "Invalid content length. "+  errorMessage;
+  }
+  res.end(messageString); 
+});
+
+app.get('/timeout/*', function(req, res) {
+  let fetchNumberArray = fetchIntegerValueInRequestPath(req);
+  let timeoutLenght = fetchNumberArray[0];
+  let errorMessage = fetchNumberArray[1];
+  if(timeoutLenght != undefined){
+    setTimeout((function() {
+      // res.writeHead(203, {'Content-Type': 'text/plain'});
+      res.send("Hello I am still alive after the timeout of " + timeoutLenght + " millisconds \n");
+    }), timeoutLenght);
+  } else {
+    res.end("Invalid timeout value passed");
+  }
+
+});
+
 
 app.get('/', function(req, res) {
     res.send('Do nothing :) \n');

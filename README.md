@@ -14,4 +14,8 @@ code based on the request URI. e.g. `/status/302`
 `npm start`
 
 
+## Make a request to the API
+
+`curl localhost:3000/status/302`
+
 
