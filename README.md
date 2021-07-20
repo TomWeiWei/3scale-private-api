@@ -7,7 +7,9 @@ code based on the request URI. e.g. `/status/302`
 ## Install
 
 `git clone https://github.com/chamalabey/3scale-private-api.git`
+
 `cd 3scale-private-api`
+
 `npm install`
 
 ## Deploy
