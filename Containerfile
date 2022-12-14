@@ -5,6 +5,6 @@ COPY . /opt/app-root/src/
 RUN cd /opt/app-root/src && \
     npm install
 
-EXPOSE 8080
+EXPOSE 3000
 
-CMD npm start
+CMD npm start 
